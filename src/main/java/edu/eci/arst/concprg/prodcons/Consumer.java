@@ -38,11 +38,11 @@ public class Consumer extends Thread{
                 System.out.println("Consumer consumes "+elem);
                 queue.notify();
             }
-//            try {
-//                Thread.sleep(1);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
             
     }

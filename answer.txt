@@ -1,0 +1,1 @@
+Podría existir condiciones de carrera ya que los inmortales que están muertos se seguirán revisando, además esto podría causar un problema en cuanto la especificación del problema, ya que al final deberían quedar 2 inmortales luchando en un ciclo infinito, si no se emplea una estrategia para ignorar a los inmortales muertos en el momento de la lucha existiria un error.
