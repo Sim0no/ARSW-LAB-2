@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JScrollBar;
 
 public class ControlFrame extends JFrame {
@@ -30,6 +31,7 @@ public class ControlFrame extends JFrame {
     private JPanel contentPane;
 
     private List<Immortal> immortals;
+    private List<Immortal> immortalsP;
 
     private JTextArea output;
     private JLabel statisticsLabel;
@@ -88,15 +90,18 @@ public class ControlFrame extends JFrame {
         btnPauseAndCheck.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                /*
-				 * COMPLETAR
-                 */
-                int sum = 0;
                 for (Immortal im : immortals) {
-                    sum += im.getHealth();
+                    if(im.isAlive()){
+                        im.sleepImmortal();
+                    }
+
+                }
+                int sum = 0;
+                for (Immortal im : immortalsP) {
+                    sum += im.getHealth().get();
                 }
 
-                statisticsLabel.setText("<html>"+immortals.toString()+"<br>Health sum:"+ sum);
+                statisticsLabel.setText("<html>"+immortalsP.toString()+"<br>Health sum:"+ sum);
                 
                 
 
@@ -108,9 +113,11 @@ public class ControlFrame extends JFrame {
 
         btnResume.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /**
-                 * IMPLEMENTAR
-                 */
+                for (Immortal im : immortals) {
+                    if(im.isAlive()) {
+                        im.wakeUpImmortal();
+                    }
+                }
 
             }
         });
@@ -126,6 +133,20 @@ public class ControlFrame extends JFrame {
         numOfImmortals.setColumns(10);
 
         JButton btnStop = new JButton("STOP");
+        btnStop.addActionListener(new ActionListener() {
+                                      @Override
+                                      public void actionPerformed(ActionEvent e) {
+                                          btnPauseAndCheck.setEnabled(false);
+                                          btnResume.setEnabled(false);
+                                          for (Immortal im : immortals) {
+                                              if(im.isAlive()) {
+                                                  im.setAlive(false);
+                                              }
+                                          }
+                                      }
+                                  }
+
+        );
         btnStop.setForeground(Color.RED);
         toolBar.add(btnStop);
 
@@ -149,12 +170,15 @@ public class ControlFrame extends JFrame {
         try {
             int ni = Integer.parseInt(numOfImmortals.getText());
 
-            List<Immortal> il = new LinkedList<Immortal>();
+            CopyOnWriteArrayList<Immortal> il = new CopyOnWriteArrayList<Immortal>();
+            List<Immortal> ilP = new LinkedList<Immortal>();
 
             for (int i = 0; i < ni; i++) {
-                Immortal i1 = new Immortal("im" + i, il, DEFAULT_IMMORTAL_HEALTH, DEFAULT_DAMAGE_VALUE,ucb);
+                Immortal i1 = new Immortal("im" + i, il,ilP, DEFAULT_IMMORTAL_HEALTH, DEFAULT_DAMAGE_VALUE,ucb);
                 il.add(i1);
+                ilP.add(i1);
             }
+            this.immortalsP=ilP;
             return il;
         } catch (NumberFormatException e) {
             JOptionPane.showConfirmDialog(null, "Número inválido.");
