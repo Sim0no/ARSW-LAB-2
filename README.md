@@ -1,8 +1,31 @@
-# ARSW-LAB-2
+# JAVA IMMORTALS
 
-## Simón Marín y Davor Cortés
+> Arquitectura de Software
+>
+> Simon Marín - Davor Cortés
+>
 
-A continuación las instrucciones de instalación y las respuestas de los ejercicios.
+Este laboratorio tiene como fin que el estudiante conozca y aplique conceptos propios de la programación concurrente, además de estrategias que eviten condiciones de carrera.
+
+## Requisites
+
++ Java SE JDK 8
++ Maven
++ Git
+
+
+## Compile and Run
+
+En la consola de comandos ingresar el siguiente comando para compilar el proyecto y ejecutar las pruebas:
+```
+mvn package
+```
+
+Para ejecutar específicamente las clases principales de los ejercicios, se debe ingresar el siguiente comando reemplazando `<nombre>`, por la clase respectiva:
+```
+mvn exec:java -Dexec.mainClass="<nombre>"
+```
+
 
 # Part I - Before finishing class
 ### Thread control with wait/notify. Producer/consumer
