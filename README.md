@@ -21,9 +21,18 @@ En la consola de comandos ingresar el siguiente comando para compilar el proyect
 mvn package
 ```
 
-Para ejecutar específicamente las clases principales de los ejercicios, se debe ingresar el siguiente comando reemplazando `<nombre>`, por la clase respectiva:
+Para ejecutar específicamente las clases principales de los ejercicios, se debe ingresar el siguiente comando:
+
++ Para el juego de los inmortales
+
 ```
-mvn exec:java -Dexec.mainClass="<nombre>"
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.highlandersim.ControlFrame"
+```
+
++ Para productores y consumidores
+
+```
+mvn exec:java -Dexec.mainClass="edu.eci.arst.concprg.prodcons.StartProduction"
 ```
 
 
